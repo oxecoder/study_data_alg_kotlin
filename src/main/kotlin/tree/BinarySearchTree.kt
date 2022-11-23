@@ -23,15 +23,22 @@ class BinarySearchTree<T : Comparable<T>>() {
   }
 
   fun contains(value: T): Boolean {
-    root ?: return false
+    var current = root
 
-    var found = false
-    root?.traverseInOrder {
-      if (value == it) {
-        found = true
+    while (current != null) {
+      if (current.value == value) {
+        return true
+      }
+
+      // since binary search tree always has lower value on left child
+      current = if (value < current.value) {
+        current.leftChild
+      } else {
+        current.rightChild
       }
     }
-    return found
+
+    return false
   }
 
   override fun toString(): String {

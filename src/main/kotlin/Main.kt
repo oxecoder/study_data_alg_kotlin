@@ -7,7 +7,13 @@ fun main(args: Array<String>) {
 //  println("Program arguments: ${args.joinToString()}")
 
   val bst = BinarySearchTree<Int>()
-  (0..4).forEach { bst.insert(it) }
+  (0..5).forEach { bst.insert(it) }
   println(bst)
+
+  if(bst.contains(5)){
+    println("Found 5")
+  }else{
+    println("Could not find 5")
+  }
 }
 
