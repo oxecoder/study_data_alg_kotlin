@@ -2,9 +2,15 @@ package tree
 
 typealias Visitor<T> = ((T) -> Unit)
 
-class BinaryNode<T>(val value: T) {
+class BinaryNode<T>(var value: T) {
   var leftChild: BinaryNode<T>? = null
   var rightChild: BinaryNode<T>? = null
+
+  /**
+   * recursively search for the minimum node in a subtree
+   */
+  val min: BinaryNode<T>
+    get() = leftChild?.min ?: this
 
   /**
    * travels left child -> parent -> right child
