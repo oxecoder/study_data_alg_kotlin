@@ -1,6 +1,6 @@
 package tree
 
-class BinarySearchTree<T : Comparable<T>>() {
+open class BinarySearchTree<T : Comparable<T>>() {
   var root: BinaryNode<T>? = null
 
   fun insert(value: T) {
