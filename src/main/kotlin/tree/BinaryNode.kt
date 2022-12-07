@@ -2,7 +2,7 @@ package tree
 
 typealias Visitor<T> = ((T) -> Unit)
 
-class BinaryNode<T>(var value: T) {
+open class BinaryNode<T>(var value: T) {
   var leftChild: BinaryNode<T>? = null
   var rightChild: BinaryNode<T>? = null
 
