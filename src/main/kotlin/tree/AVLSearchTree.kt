@@ -21,7 +21,11 @@ open class AVLSearchTree<T : Comparable<T>>() {
     } else {
       node.rightChild = insert(node.rightChild, value)
     }
-    return node
+
+    // check if balancing is needed
+    val balancedNode = balanced(node)
+    balancedNode.height = max(balancedNode.leftHeight, balancedNode.rightHeight) + 1
+    return balancedNode
   }
 
   fun contains(value: T): Boolean {
@@ -73,7 +77,10 @@ open class AVLSearchTree<T : Comparable<T>>() {
       value < node.value -> node.leftChild = remove(node.leftChild, value)
       else -> node.rightChild = remove(node.rightChild, value)
     }
-    return node
+
+    val balancedNode = balanced(node)
+    balancedNode.height = max(balancedNode.leftHeight, balancedNode.rightHeight) + 1
+    return balancedNode
   }
 
   private fun leftRotate(node: AVLNode<T>): AVLNode<T> {
@@ -104,6 +111,36 @@ open class AVLSearchTree<T : Comparable<T>>() {
     val leftChild = node.leftChild ?: return node
     node.leftChild = leftRotate(leftChild)
     return rightRotate(node)
+  }
+
+  /**
+   * balanceFactor of 2 suggests that the left child is heavier
+   * balanceFactor of -2 suggests that the right child is heavier
+   * else balanced
+   *
+   * by using the sign of the balanceFactor of child, determine if single or double rotation is required
+   */
+  private fun balanced(node: AVLNode<T>): AVLNode<T> {
+    return when (node.balanceFactor) {
+      2 -> {
+        if (node.leftChild?.balanceFactor == -1) {
+          leftRightRotate(node)
+        } else {
+          rightRotate(node)
+        }
+      }
+
+      (-2) -> {
+        if (node.rightChild?.balanceFactor == 1) {
+          rightLeftRotate(node)
+        } else {
+          leftRotate(node)
+        }
+      }
+
+      else -> node
+    }
+
   }
 
   override fun toString(): String {
