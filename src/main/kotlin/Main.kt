@@ -2,7 +2,6 @@ import tree.Trie
 
 fun main(args: Array<String>) {
   `given trie when insert word then show contains`()
-  println("test push")
 }
 
 private fun `given trie when insert word then show contains`() {
