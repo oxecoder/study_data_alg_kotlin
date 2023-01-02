@@ -35,4 +35,34 @@ class Trie<Key> {
     return current.isTerminating
   }
 
+  fun remove(collection: List<Key>) {
+    var current = root
+    collection.forEach {
+      val child = current.children[it] ?: return
+      current = child
+    }
+    if (!current.isTerminating) return
+    current.isTerminating = false
+
+    val parent = current.parent
+    while (current.children.isEmpty() && !current.isTerminating) {
+      parent?.let {
+        current.children.clear()
+        current = it
+      }
+    }
+  }
 }
+
+fun Trie<Char>.contains(string: String): Boolean {
+  return contains(string.toList())
+}
+
+fun Trie<Char>.insert(string: String) {
+  insert(string.toList())
+}
+
+fun Trie<Char>.remove(string: String) {
+  remove(string.toList())
+}
+
