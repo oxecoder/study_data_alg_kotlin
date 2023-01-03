@@ -16,4 +16,10 @@ class TrieNode<Key>(var key: Key?, var parent: TrieNode<Key>?) {
    * may not necessarily be a leaf node
    */
   var isTerminating = false
+
+  override fun toString(): String {
+    return "key: ${key?.toString()}"
+  }
+
+
 }
